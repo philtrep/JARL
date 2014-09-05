@@ -1,20 +1,18 @@
 asyncCallback={
 	all: function()
 	{
-		console.log("Done Loading!");
-		window.startScript();
+		console.log("ALL good!");
 	},
 	css: function()
 	{
-	
+		console.log("CSS good!");
 	},
 	js: function()
 	{
-	
+		console.log("JS good!");
+		console.log(jQuery.ui);
 	}
 };
-
-
 
 ;(function(d,s){
 	window.isOldIE = (function(){	
@@ -24,13 +22,13 @@ asyncCallback={
 			if (new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null)
 				rv = parseFloat( RegExp.$1 );
 		}	
-		return rv>-1  && rv<10?true:false;
+		return rv > -1 && rv < 10 ? true : false;
 	})();
 	
 	var fjs = d.getElementsByTagName(s)[0];
-	a2l = 0;
-	j2l = 0;
-	c2l = 0;
+		a2l = 0,
+		j2l = 0,
+		c2l = 0;
 	
 	Loader = (function(){
 		var child = function(options){
@@ -54,27 +52,39 @@ asyncCallback={
 			{
 				var self = this;
 				var req = self.createXMLHTTPObject();
-				if (!req) return;
+				if(!req)
+				{
+					return;
+				}
 				var method = (postData) ? "POST" : "GET";
 				req.open(method,url,true);
-				if (postData)
+				if(postData)
+				{
 					req.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+				}
 				req.onreadystatechange = function () {
-					if (req.readyState != 4) return;
-					if (req.status != 200 && req.status != 304) {
+					if(req.readyState != 4)
+					{
+						return;
+					}
+					if(req.status != 200 && req.status != 304)
+					{
 						return;
 					}
 					callback(req);
 				}
-				if (req.readyState == 4) return;
+				if(req.readyState == 4)
+				{
+					return;
+				}
 				req.send(postData);
 			},
 			'XMLHttpFactories':
 			[
-				function () {return new XMLHttpRequest()},
-				function () {return new ActiveXObject("Msxml2.XMLHTTP")},
-				function () {return new ActiveXObject("Msxml3.XMLHTTP")},
-				function () {return new ActiveXObject("Microsoft.XMLHTTP")}
+				function(){ return new XMLHttpRequest() },
+				function(){ return new ActiveXObject("Msxml2.XMLHTTP") },
+				function(){ return new ActiveXObject("Msxml3.XMLHTTP") },
+				function(){ return new ActiveXObject("Microsoft.XMLHTTP") }
 			],
 			'createXMLHTTPObject': function()
 			{
@@ -111,13 +121,17 @@ asyncCallback={
 			var _obj = obj[_o];
 			
 			var _fn = function(){},
-			u = _obj['src'],
-			i = _obj['class'],
-			t = _obj['type'],
-			c = _obj['cb'],
-			b = _obj['scripts'];
+				u = _obj['src'],
+				i = _obj['class'],
+				t = _obj['type'],
+				c = _obj['cb'],
+				b = _obj['scripts'];
 			
-			if (d.getElementsByClassName(i)[0] || !u || !i || !t) return;
+			if(d.getElementsByClassName(i)[0] || !u || !i || !t)
+			{
+				console.error("Invalid options in asynchronous resource", _obj);
+				continue;
+			}
 			
 			switch(t)
 			{
@@ -149,12 +163,15 @@ asyncCallback={
 					ele.href = u;
 					a2l++;
 					c2l++;
-					var _fn = function()
+					var _fn = function(dont_skip_callback)
 					{
-						c && c();
+						if(!dont_skip_callback)
+						{
+							c && c();
+						}
 						if(1 > --c2l)
 						{
-							asyncCallback['js']();
+							asyncCallback['css']();
 						}
 						if (1 > --a2l)
 						{	
@@ -172,12 +189,12 @@ asyncCallback={
 				ele.id = _obj['id'];
 			}
 			ele.setAttribute('class',i);
-			
-			if(b)
+			if(typeof b == "object" && b.length)
 			{
 				ele.scriptsnb = b.length;
 				ele.scriptsdone = 0;
 				ele.loaded = false;
+
 				loader = new Loader({
 					'elementClass':i,
 					'fn': _fn,
@@ -192,21 +209,14 @@ asyncCallback={
 
 						var ele = document.getElementsByClassName(loader.elementClass)[0];
 						
-						if(1 > --j2l)
-						{
-							asyncCallback['js']();
-						}
-						if (1 > --a2l)
-						{	
-							asyncCallback.all();
-						}
-						
+						/*
 						if(ele.scriptsdone == ele.scriptsnb && ele.loaded)
 						{
 							var _ele_ = document.createElement("script");
 							_ele_.innerHTML = loader.script;
-							fjs.parentNode.insertBefore(_ele_, fjs);
+							fjs.parentNode.insertAfter(_ele_, fjs);
 						}
+						*/
 					}
 				});
 				loader.addRequests(b);
@@ -218,19 +228,19 @@ asyncCallback={
 					if(ele.scriptsdone == ele.scriptsnb && ele.loaded)
 					{
 						var _ele_ = document.createElement("script");
-						_ele_.innerHTML = loader.script;
+						_ele_.innerHTML = loader.script+"\r\n;(function(){j2l-="+ele.scriptsnb+"; a2l-="+ele.scriptsnb+"; if(1 > --j2l){asyncCallback['js']();}if (1 > --a2l){asyncCallback.all();}}());";
 						fjs.parentNode.insertBefore(_ele_, fjs);
 					}
 				};
 				ele.onerror = function(e)
 				{
 					finished(e);
-					loader.fn();
+					loader.fn(true);
 				}
 				ele.onload = function(e)
 				{
 					finished(e);
-					loader.fn();
+					loader.fn(true);
 				}
 			}
 			else
@@ -247,18 +257,16 @@ asyncCallback={
 	};
 }(document, 'script'));
 
-
 async([
 	{
 		'type': 'css',
-		'src': 'assets/style/styles.css',
-		'class': '_stylesheet'
+		'src': '//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css',
+		'class': '_jquery-mobile'
 	},
 	{
-		'type': 'js',
-		'src': 'assets/js/custom-plugins.js',
-		'class': '_custom-plugins',
-		'id': 'myplugins'
+		'type': 'css',
+		'src': '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css',
+		'class': '_jquery-ui'
 	},
 	{
 		'type': 'js',
@@ -266,14 +274,16 @@ async([
 		'class': '_jquery-script',
 		'scripts': [
 			{
-				'src': 'assets/js/selectivizr-min.js',
+				'src': '//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js',
 			},
-			{
-				'src': 'assets/js/fancybox/jquery.fancybox.js',
-			},
-			{
-				'src': 'assets/js/fancybox/jquery.fancybox.pack.js',
-			}
-		]
-	},
+			/*{
+				'src': '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js',
+			},*/
+		],
+		'cb': function()
+		{
+			console.log("jQuery callback");
+			console.log(jQuery("body"))
+		}
+	}
 ]);
