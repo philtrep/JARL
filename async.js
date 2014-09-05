@@ -228,7 +228,9 @@ asyncCallback={
 					if(ele.scriptsdone == ele.scriptsnb && ele.loaded)
 					{
 						var _ele_ = document.createElement("script");
-						_ele_.innerHTML = loader.script+"\r\n;(function(){j2l-="+ele.scriptsnb+"; a2l-="+ele.scriptsnb+"; if(1 > --j2l){asyncCallback['js']();}if (1 > --a2l){asyncCallback.all();}}());";
+						_ele_.innerHTML = loader.script+"\r\n;(function(){";
+						_ele_.innerHTML += "for(i = 0; i<"+ele.scriptsnb+"; i++){if(1 > --j2l){asyncCallback['js']();}if (1 > --a2l){asyncCallback.all();}}";
+						_ele_.innerHTML += "}());";
 						fjs.parentNode.insertBefore(_ele_, fjs);
 					}
 				};
