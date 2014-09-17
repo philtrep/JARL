@@ -5,9 +5,8 @@ CARL
 
 <h3>Usage</h3>
 
-At the end of the <pre>head</pre> tag:
+At the end of the <code>head</code> tag:
 <pre>
-<script>
 	////
 	//CARL script goes here
 	///
@@ -68,6 +67,4 @@ At the end of the <pre>head</pre> tag:
 			}
 		}
 	]);
-
-</script>
 </pre>
