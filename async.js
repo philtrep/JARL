@@ -2,6 +2,9 @@ asyncCallback={
 	all: function()
 	{
 		console.log("ALL good!");
+		jQuery(function(){
+			jQuery("#status").text("Script finished!");
+		})
 	},
 	css: function()
 	{
@@ -10,7 +13,6 @@ asyncCallback={
 	js: function()
 	{
 		console.log("JS good!");
-		console.log(jQuery.ui);
 	}
 };
 
@@ -24,7 +26,89 @@ asyncCallback={
 		}	
 		return rv > -1 && rv < 10 ? true : false;
 	})();
-	
+
+	String.prototype.removeComments = function() {
+	    var str = ('__' + this + '__').split('');
+	    var mode = {
+	        singleQuote: false,
+	        doubleQuote: false,
+	        regex: false,
+	        blockComment: false,
+	        lineComment: false,
+	        condComp: false 
+	    };
+	    for (var i = 0, l = str.length; i < l; i++) {
+	 
+	        if (mode.regex) {
+	            if (str[i] === '/' && str[i-1] !== '\\') {
+	                mode.regex = false;
+	            }
+	            continue;
+	        }
+	 
+	        if (mode.singleQuote) {
+	            if (str[i] === "'" && str[i-1] !== '\\') {
+	                mode.singleQuote = false;
+	            }
+	            continue;
+	        }
+	 
+	        if (mode.doubleQuote) {
+	            if (str[i] === '"' && str[i-1] !== '\\') {
+	                mode.doubleQuote = false;
+	            }
+	            continue;
+	        }
+	 
+	        if (mode.blockComment) {
+	            if (str[i] === '*' && str[i+1] === '/') {
+	                str[i+1] = '';
+	                mode.blockComment = false;
+	            }
+	            str[i] = '';
+	            continue;
+	        }
+	 
+	        if (mode.lineComment) {
+	            if (str[i+1] === '\n' || str[i+1] === '\r') {
+	                mode.lineComment = false;
+	            }
+	            str[i] = '';
+	            continue;
+	        }
+	 
+	        if (mode.condComp) {
+	            if (str[i-2] === '@' && str[i-1] === '*' && str[i] === '/') {
+	                mode.condComp = false;
+	            }
+	            continue;
+	        }
+	 
+	        mode.doubleQuote = str[i] === '"';
+	        mode.singleQuote = str[i] === "'";
+	 
+	        if (str[i] === '/') {
+	 
+	            if (str[i+1] === '*' && str[i+2] === '@') {
+	                mode.condComp = true;
+	                continue;
+	            }
+	            if (str[i+1] === '*') {
+	                str[i] = '';
+	                mode.blockComment = true;
+	                continue;
+	            }
+	            if (str[i+1] === '/') {
+	                str[i] = '';
+	                mode.lineComment = true;
+	                continue;
+	            }
+	            mode.regex = true;
+	        }
+	    }
+	    return str.join('').slice(2, -2);
+	}
+
 	var fjs = d.getElementsByTagName(s)[0];
 		a2l = 0,
 		j2l = 0,
@@ -202,21 +286,13 @@ asyncCallback={
 					{
 					
 						var ele = document.getElementsByClassName(loader.elementClass)[0];
-						var asynctext = req.responseText?req.responseText:"";
+						var asynctext = req.responseText.removeComments() || "";
 						ele.callscript = ele.callscript + asynctext;
 						loader.script = loader.script + asynctext;
 						ele.scriptsdone++;
 
 						var ele = document.getElementsByClassName(loader.elementClass)[0];
 						
-						/*
-						if(ele.scriptsdone == ele.scriptsnb && ele.loaded)
-						{
-							var _ele_ = document.createElement("script");
-							_ele_.innerHTML = loader.script;
-							fjs.parentNode.insertAfter(_ele_, fjs);
-						}
-						*/
 					}
 				});
 				loader.addRequests(b);
@@ -228,10 +304,11 @@ asyncCallback={
 					if(ele.scriptsdone == ele.scriptsnb && ele.loaded)
 					{
 						var _ele_ = document.createElement("script");
-						_ele_.innerHTML = loader.script+"\r\n;(function(){";
+						_ele_.innerHTML += loader.script+"\r\n;(function(){";
 						_ele_.innerHTML += "for(i = 0; i<"+ele.scriptsnb+"; i++){if(1 > --j2l){asyncCallback['js']();}if (1 > --a2l){asyncCallback.all();}}";
 						_ele_.innerHTML += "}());";
 						fjs.parentNode.insertBefore(_ele_, fjs);
+						console.log("Added JS L2 scripts");
 					}
 				};
 				ele.onerror = function(e)
@@ -278,14 +355,13 @@ async([
 			{
 				'src': '//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js',
 			},
-			/*{
-				'src': '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js',
-			},*/
+			{
+				'src': 'js/jqueryui.js',
+			},
 		],
 		'cb': function()
 		{
 			console.log("jQuery callback");
-			console.log(jQuery("body"))
 		}
 	}
 ]);

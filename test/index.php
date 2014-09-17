@@ -10,6 +10,6 @@
     </script>
 </head>
 <body>
-    <p>Testing async-script</p>
+    <p id="status">Running script...</p>
 </body>
 </html>
