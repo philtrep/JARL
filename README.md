@@ -1,7 +1,7 @@
 CARL
 ============
 
-<span style="bold">C</span><small>allbacks with </small><u>A</u><small>synchronous </small><u>R</u><small>esource </small><u>L</u><small>oader</small>
+<span style="text-decoration: underline;">C</span><small>allbacks with </small><u>A</u><small>synchronous </small><u>R</u><small>esource </small><u>L</u><small>oader</small>
 
 <h3>Usage</h3>
 
