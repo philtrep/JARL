@@ -1,17 +1,17 @@
 CARL
 ============
 
-<span style="text-decoration: underline;">C</span><small>allbacks with </small><u>A</u><small>synchronous </small><u>R</u><small>esource </small><u>L</u><small>oader</small>
+<h4>**C**allbacks with **A**synchronous **R**esource **L**oader</h4>
 
 <h3>Usage</h3>
 
-At the end of the <code>head</code> tag:
-<pre>
+At the end of the *head* tag:
+```javascript
 ////
 //CARL script goes here
 ///
 
-asyncCallback = {	//Define in global scope BEFORE calling the "async" method
+window.asyncCallback = {	//Define in global scope BEFORE calling the "async" method
 	all: function()
 	{
 		//Callback on all resources
@@ -67,4 +67,4 @@ async([
 		}
 	}
 ]);
-</pre>
+```
