@@ -1,7 +1,7 @@
 CARL
 ============
 
-**C**allbacks with **A**synchronous **R**esource **L**oader
+<em>C</em>allbacks with <em>A</em>synchronous <em>R</em>esource <em>L</em>oader
 
 ### Usage
 
