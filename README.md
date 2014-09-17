@@ -1,9 +1,9 @@
 CARL
 ============
 
-<h4><strong>C</strong>allbacks with <strong>A</strong>synchronous <strong>R</strong>esource <strong>L</strong>oader</h4>
+**C**allbacks with **A**synchronous **R**esource **L**oader
 
-<h3>Usage</h3>
+### Usage
 
 At the end of the *head* tag:
 ```javascript
