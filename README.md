@@ -1,7 +1,7 @@
 CARL
 ============
 
-<h4>**C**allbacks with **A**synchronous **R**esource **L**oader</h4>
+<h4><strong>C</strong>allbacks with <strong>A</strong>synchronous <strong>R</strong>esource <strong>L</strong>oader</h4>
 
 <h3>Usage</h3>
 
