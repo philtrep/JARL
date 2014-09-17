@@ -1,3 +1,21 @@
+asyncCallback={
+	all: function()
+	{
+		console.log("ALL good!");
+		jQuery(function(){
+			jQuery("#status").text("Script finished!");
+		})
+	},
+	css: function()
+	{
+		console.log("CSS good!");
+	},
+	js: function()
+	{
+		console.log("JS good!");
+	}
+};
+
 ;(function(d,s){
 	window.isOldIE = (function(){	
 		var rv = -1;
@@ -317,3 +335,33 @@
 		}
 	};
 }(document, 'script'));
+
+async([
+	{
+		'type': 'css',
+		'src': '//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css',
+		'class': '_jquery-mobile'
+	},
+	{
+		'type': 'css',
+		'src': '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css',
+		'class': '_jquery-ui'
+	},
+	{
+		'type': 'js',
+		'src': '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
+		'class': '_jquery-script',
+		'scripts': [
+			{
+				'src': '//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js',
+			},
+			{
+				'src': 'js/jqueryui.js',
+			},
+		],
+		'cb': function()
+		{
+			console.log("jQuery callback");
+		}
+	}
+]);

@@ -5,7 +5,7 @@
     <title>Test Async-Script</title>
     <script>
     <?php
-        echo file_get_contents("../async.js");
+        echo file_get_contents("../test-async.js");
     ?>
     </script>
 </head>
