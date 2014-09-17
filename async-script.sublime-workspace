@@ -488,11 +488,15 @@
 	},
 	"file_history":
 	[
+		"/var/www/async-script/README.md",
+		"/var/www/async-script/async.js",
+		"/var/www/async-script/async.min.js",
+		"/var/www/async-script/test/index.php",
+		"/var/www/async-script/test-async.js",
+		"/var/www/async-script/async-script.sublime-project",
 		"/var/python/FondationsOverMil/getlinks.py",
 		"/var/python/FondationsOverMil/getrevenue.py",
 		"/var/python/FondationsOverMil/matching_foundations.csv",
-		"/var/www/async-script/test/index.php",
-		"/var/www/async-script/async.js",
 		"/tmp/fz3temp-1/unit-content.php",
 		"/tmp/fz3temp-1/.htaccess",
 		"/tmp/fz3temp-1/robots.txt",
@@ -611,11 +615,7 @@
 		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/construction-commercial.php",
 		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/c-guide.php",
 		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/c-guarantee.php",
-		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/c-faq.php",
-		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/career.php",
-		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/404.php",
-		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/t-links.php",
-		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/t-guide.php"
+		"/run/user/1000/gvfs/sftp:host=stagekonversion.ca/var/www/voyertremblay.com/voyertremblay/wordpress/wp-content/themes/voyertremblay/c-faq.php"
 	],
 	"find":
 	{
@@ -634,6 +634,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"</strong>",
+			"<strong>",
 			"callback",
 			"_fn",
 			"c",
@@ -687,6 +689,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"**",
 			"$_id",
 			".page-gallery\n",
 			")\n",
@@ -760,7 +763,7 @@
 	"project": "async-script.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
