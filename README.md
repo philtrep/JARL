@@ -1,6 +1,8 @@
-async-script
+JARL
 ============
 
 JavaScript Asynchronous Resource Loader
 
-Still in development, <IE9 is not yet supported.
+Usage:
+
+
