@@ -1,6 +1,8 @@
 JARL
 ============
 
+## [DEPRECATED]
+
 JavaScript Asynchronous Resource Loader
 
 ### Usage
